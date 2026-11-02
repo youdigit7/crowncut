@@ -1,0 +1,272 @@
+"use client"
+
+import { usePathname, useRouter, useSearchParams } from "next/navigation"
+import { useCallback, useEffect, useRef, useState } from "react"
+
+import SortProducts, { SortOptions } from "./sort-products"
+
+type FilterOptions = {
+  priceRange: { min?: number; max?: number }
+  inStock: boolean
+  onSale: boolean
+  search: string
+  category: string
+}
+
+type RefinementListProps = {
+  sortBy: SortOptions
+  filters?: FilterOptions
+  search?: boolean
+  'data-testid'?: string
+}
+
+const RefinementList = ({ sortBy, filters, 'data-testid': dataTestId }: RefinementListProps) => {
+  const router = useRouter()
+  const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const isListView = searchParams?.get('view') === 'list'
+
+  const [searchDraft, setSearchDraft] = useState(filters?.search || "")
+  const [minDraft, setMinDraft] = useState(filters?.priceRange?.min?.toString() || "")
+  const [maxDraft, setMaxDraft] = useState(filters?.priceRange?.max?.toString() || "")
+  const searchDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+
+  useEffect(() => {
+    setSearchDraft(filters?.search || "")
+  }, [filters?.search])
+
+  useEffect(() => {
+    setMinDraft(filters?.priceRange?.min?.toString() || "")
+  }, [filters?.priceRange?.min])
+
+  useEffect(() => {
+    setMaxDraft(filters?.priceRange?.max?.toString() || "")
+  }, [filters?.priceRange?.max])
+
+  const themedCardStyle: React.CSSProperties = {
+    border: "1.5px solid rgb(222, 222, 209)",
+    borderRadius: 8,
+    boxShadow: "0 2px 6px rgba(0,0,0,0.08)",
+    background: "#fff",
+  }
+
+  const themedBodyStyle: React.CSSProperties = {
+    background: "#fff",
+    padding: "1rem",
+  }
+
+  const themedAlertStyle: React.CSSProperties = {
+    border: "1.5px solid rgb(222, 222, 209)",
+    borderRadius: 8,
+    background: "#fff",
+    color: "rgb(52, 52, 45)",
+    padding: "0.75rem 1rem",
+    marginBottom: 0,
+  }
+
+  const viewButtonBaseStyle: React.CSSProperties = {
+    border: "1.5px solid rgb(222, 222, 209)",
+    borderRadius: 6,
+    padding: "0.5rem 0.75rem",
+    fontWeight: 500,
+  }
+
+  const viewButtonActiveStyle: React.CSSProperties = {
+    background: "rgb(222, 222, 209)",
+    color: "rgb(35, 35, 31)",
+  }
+
+  const viewButtonInactiveStyle: React.CSSProperties = {
+    background: "#fff",
+    color: "rgb(74, 74, 65)",
+  }
+
+  const createQueryString = useCallback(
+    (name: string, value: string) => {
+      const params = new URLSearchParams(searchParams)
+      params.set(name, value)
+
+      return params.toString()
+    },
+    [searchParams]
+  )
+
+  const setQueryParams = (name: string, value: string) => {
+    const query = createQueryString(name, value)
+    router.push(`${pathname}?${query}`)
+  }
+
+  const updateFilters = (updates: Record<string, string>) => {
+    const params = new URLSearchParams(searchParams)
+    Object.entries(updates).forEach(([key, value]) => {
+      if (value) {
+        params.set(key, value)
+      } else {
+        params.delete(key)
+      }
+    })
+    router.push(`${pathname}?${params.toString()}`)
+  }
+
+  const canApply =
+    searchDraft.trim() !== (filters?.search || "").trim() ||
+    minDraft.trim() !== (filters?.priceRange?.min?.toString() || "").trim() ||
+    maxDraft.trim() !== (filters?.priceRange?.max?.toString() || "").trim()
+
+  return (
+    <div className="d-grid tp-refinement-list" style={{ gap: "2rem", alignContent: "start", height: "100%" }}>
+      <div className="card" style={themedCardStyle}>
+        <div className="card-body" style={themedBodyStyle}>
+          <SortProducts sortBy={sortBy} setQueryParams={setQueryParams} data-testid={dataTestId} />
+        </div>
+      </div>
+
+      {/* Active Category Filter */}
+      {filters?.category && (
+        <div className="d-flex justify-content-between align-items-center" style={themedAlertStyle}>
+          <span>
+            <strong>Category:</strong> {filters.category.replace(/-/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+          </span>
+          <button
+            className="btn btn-sm"
+            style={{ border: "1.5px solid rgb(222, 222, 209)", color: "rgb(74, 74, 65)", background: "#fff" }}
+            onClick={() => updateFilters({ category: '' })}
+          >
+            Clear
+          </button>
+        </div>
+      )}
+      
+      {/* Search Filter */}
+      <div className="card" style={themedCardStyle}>
+        <div className="card-body" style={themedBodyStyle}>
+          <h6 className="card-title mb-3">Search</h6>
+          <input
+            type="text"
+            className="form-control tp-theme-input"
+            placeholder="Search products..."
+            value={searchDraft}
+            onChange={(e) => {
+              const value = e.target.value
+              setSearchDraft(value)
+              if (searchDebounceRef.current) clearTimeout(searchDebounceRef.current)
+              searchDebounceRef.current = setTimeout(() => {
+                updateFilters({ search: value.trim(), page: "1" })
+              }, 400)
+            }}
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                e.preventDefault()
+                if (searchDebounceRef.current) clearTimeout(searchDebounceRef.current)
+                updateFilters({ search: searchDraft.trim(), page: "1" })
+              }
+            }}
+          />
+        </div>
+      </div>
+
+      {/* Price Filter */}
+      <div className="card" style={themedCardStyle}>
+        <div className="card-body" style={themedBodyStyle}>
+          <h6 className="card-title mb-3">Price Range</h6>
+          <div className="row g-2">
+            <div className="col-6">
+              <input
+                type="number"
+                className="form-control tp-theme-input"
+                placeholder="Min"
+                value={minDraft}
+                onChange={(e) => setMinDraft(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault()
+                    updateFilters({ minPrice: minDraft.trim(), page: "1" })
+                  }
+                }}
+              />
+            </div>
+            <div className="col-6">
+              <input
+                type="number"
+                className="form-control tp-theme-input"
+                placeholder="Max"
+                value={maxDraft}
+                onChange={(e) => setMaxDraft(e.target.value)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter") {
+                    e.preventDefault()
+                    updateFilters({ maxPrice: maxDraft.trim(), page: "1" })
+                  }
+                }}
+              />
+            </div>
+          </div>
+
+          <div className="d-flex gap-2 mt-3">
+            <button
+              type="button"
+              className="btn flex-fill"
+              style={{ border: "1.5px solid rgb(222, 222, 209)", background: "#fff" }}
+              onClick={() => {
+                setSearchDraft(filters?.search || "")
+                setMinDraft(filters?.priceRange?.min?.toString() || "")
+                setMaxDraft(filters?.priceRange?.max?.toString() || "")
+              }}
+              disabled={!canApply}
+            >
+              Reset
+            </button>
+            <button
+              type="button"
+              className="btn flex-fill"
+              style={{ border: "1.5px solid rgb(222, 222, 209)", background: "rgb(222, 222, 209)", color: "rgb(35, 35, 31)" }}
+              onClick={() => updateFilters({
+                search: searchDraft.trim(),
+                minPrice: minDraft.trim(),
+                maxPrice: maxDraft.trim(),
+                page: "1",
+              })}
+              disabled={!canApply}
+            >
+              Apply
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* Status Filters */}
+      <div className="card" style={themedCardStyle}>
+        <div className="card-body" style={themedBodyStyle}>
+          <h6 className="card-title mb-3">Status</h6>
+          <div className="form-check mb-3">
+            <input
+              type="checkbox"
+              className="form-check-input tp-theme-check"
+              id="inStockCheck"
+              checked={filters?.inStock || false}
+              onChange={(e) => updateFilters({ inStock: e.target.checked ? 'true' : '', page: '1' })}
+            />
+            <label className="form-check-label" htmlFor="inStockCheck">
+              In Stock
+            </label>
+          </div>
+          <div className="form-check">
+            <input
+              type="checkbox"
+              className="form-check-input tp-theme-check"
+              id="onSaleCheck"
+              checked={filters?.onSale || false}
+              onChange={(e) => updateFilters({ onSale: e.target.checked ? 'true' : '', page: '1' })}
+            />
+            <label className="form-check-label" htmlFor="onSaleCheck">
+              On Sale
+            </label>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  )
+}
+
+export default RefinementList

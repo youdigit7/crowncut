@@ -1,0 +1,23 @@
+# Dependencies
+node_modules/
+
+# Local & IDE settings
+.idea/
+.vscode/
+.claude/settings.local.json
+
+# Environment variables
+.env
+.env*.local
+
+# Build outputs
+dist/
+build/
+.next/
+
+# Logs
+*.log
+
+# Ignore Windows ADS Zone.Identifier artifacts everywhere
+*:[Zz]one.Identifier
+*:Zone.Identifier:$DATA
