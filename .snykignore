@@ -1,0 +1,22 @@
+# Dependencies
+**/node_modules/**
+**/.pnpm/**
+**/.pnpm-store/**
+
+# Build outputs and generated directories
+**/.medusa/**
+**/.next/**
+**/dist/**
+**/build/**
+**/coverage/**
+**/.turbo/**
+
+# Cache and logs
+**/*.log
+**/.cache/**
+**/tmp/**
+
+# IDE and environment
+**/.vscode/**
+**/.idea/**
+**/.env*

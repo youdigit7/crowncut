@@ -1,0 +1,46 @@
+packages:
+  - '.'
+
+allowBuilds:
+  '@parcel/watcher': true
+  core-js: true
+  sharp: true
+
+overrides:
+  axios: '^1.20.0'
+  body-parser: '>=1.20.9'
+  brace-expansion: '>=2.1.7'
+  braces: '>=3.0.3'
+  fast-xml-parser: '>=5.5.7'
+  glob: '>=10.5.0'
+  minimatch: '>=9.0.7'
+  nanoid: '>=3.3.17'
+  picomatch: '>=2.3.2'
+  postcss: '>=8.5.23'
+  postcss-selector-parser: '>=6.1.5'
+  proxy-addr: '2.0.8'
+  compression: '>=1.8.2'
+  form-data: '>=4.0.6'
+  tmp: '>=0.2.7'
+  immutable: '>=3.8.4'
+  js-yaml: '>=3.15.2'
+  jws: '>=3.2.3'
+  json-2-csv: '>=5.5.11'
+  decode-uri-component: '>=0.5.1'
+  browserslist: '>=4.28.7'
+  follow-redirects: '>=1.16.0'
+  yaml: '>=2.8.3'
+  on-headers: '>=1.1.0'
+  path-to-regexp: '>=0.1.13'
+  diff: '>=4.0.4'
+  ajv: '>=8.18.0'
+  min-document: '>=2.19.1'
+  vite: '>=5.4.21'
+  esbuild: '>=0.28.1'
+  rollup: '>=4.59.0'
+  i18next: '>=23.16.8'
+  csv-parse: '>=5.6.5'
+  morgan: '>=1.12.1'
+  qs: '>=6.16.2'
+  multer: '>=2.5.0'
+  next: '15.5.28'
