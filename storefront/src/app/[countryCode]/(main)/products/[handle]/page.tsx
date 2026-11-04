@@ -4,6 +4,7 @@ import { notFound } from "next/navigation"
 import ProductTemplate from "@modules/products/templates"
 import { getRegion, listRegions } from "@lib/data/regions"
 import { getProductByHandle, getProductsList } from "@lib/data/products"
+import { getProductPrice } from "@lib/util/get-product-price"
 import {
   buildCountryAlternates,
   buildCountryPath,
@@ -109,6 +110,51 @@ export default async function ProductPage({ params }: Props) {
     `/products/${params.handle}`
   )
   const productUrl = toAbsoluteUrl(productPath)
+
+  let offerSchema: Record<string, any> | undefined = undefined
+
+  try {
+    const { cheapestPrice } = getProductPrice({
+      product: pricedProduct,
+    })
+
+    if (
+      cheapestPrice?.calculated_price_number !== undefined &&
+      cheapestPrice?.currency_code
+    ) {
+      offerSchema = {
+        "@type": "Offer",
+        price: cheapestPrice.calculated_price_number,
+        priceCurrency: String(cheapestPrice.currency_code).toUpperCase(),
+        availability: "https://schema.org/InStock",
+        url: productUrl,
+      }
+    }
+  } catch {
+    // Fallback if price calculation fails
+  }
+
+  if (!offerSchema && pricedProduct.variants?.length) {
+    const firstVariant = pricedProduct.variants[0] as any
+    const rawPrice =
+      firstVariant?.calculated_price?.calculated_amount ??
+      firstVariant?.prices?.[0]?.amount
+    const rawCurrency =
+      firstVariant?.calculated_price?.currency_code ??
+      firstVariant?.prices?.[0]?.currency_code ??
+      region.currency_code
+
+    if (typeof rawPrice === "number" && rawCurrency) {
+      offerSchema = {
+        "@type": "Offer",
+        price: rawPrice,
+        priceCurrency: String(rawCurrency).toUpperCase(),
+        availability: "https://schema.org/InStock",
+        url: productUrl,
+      }
+    }
+  }
+
   const productJsonLd = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -117,6 +163,11 @@ export default async function ProductPage({ params }: Props) {
     image: pricedProduct.thumbnail ? [pricedProduct.thumbnail] : undefined,
     sku: pricedProduct.handle,
     url: productUrl,
+    brand: {
+      "@type": "Brand",
+      name: "Crowncut Gems International",
+    },
+    ...(offerSchema ? { offers: offerSchema } : {}),
   }
 
   const breadcrumbJsonLd = {

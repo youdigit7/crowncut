@@ -33,6 +33,7 @@ export default async function Checkout() {
   return (
     <section className="tp-checkout-area pt-60 pb-60">
       <div className="container">
+        <h1 className="sr-only">Checkout</h1>
         <div className="row">
           <div className="col-lg-7">
             <Wrapper cart={cart}>

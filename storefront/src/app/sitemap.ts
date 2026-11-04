@@ -6,7 +6,15 @@ import { getProductsList } from "@lib/data/products"
 import { listRegions } from "@lib/data/regions"
 import { buildCountryPath, toAbsoluteUrl } from "@lib/util/seo"
 
-const STATIC_ROUTES = ["", "/store", "/categories"]
+const STATIC_ROUTES = [
+  "",
+  "/store",
+  "/categories",
+  "/our-story",
+  "/contact",
+  "/terms-and-conditions",
+  "/privacy-policy",
+]
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const regions = await listRegions()

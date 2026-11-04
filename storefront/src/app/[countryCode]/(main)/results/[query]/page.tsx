@@ -6,10 +6,20 @@ import { search } from "@modules/search/actions"
 import { SortOptions } from "@modules/store/components/refinement-list/sort-products"
 import { buildNoIndexMetadata } from "@lib/util/seo"
 
-export const metadata: Metadata = {
-  title: "Search",
-  description: "Explore all of our products.",
-  ...buildNoIndexMetadata(),
+export async function generateMetadata({
+  params,
+}: {
+  params: { query: string }
+}): Promise<Metadata> {
+  const decodedQuery = decodeURIComponent(params.query || "").trim()
+  const safeQuery = decodedQuery.slice(0, 60)
+  return {
+    title: safeQuery ? `Results for "${safeQuery}"` : "Search Results",
+    description: safeQuery
+      ? `Browse gemstones and jewelry results for "${safeQuery}".`
+      : "Explore our collection of gemstones and jewelry.",
+    ...buildNoIndexMetadata(),
+  }
 }
 
 type Params = {

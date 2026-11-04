@@ -29,8 +29,8 @@ export async function generateMetadata({
   const storePath = buildCountryPath(params.countryCode, "/store")
 
   return {
-    title: "Store",
-    description: "Explore all of our products.",
+    title: "Gemstones & Fine Jewelry Catalog",
+    description: "Explore our curated collection of fine gemstones and handcrafted jewelry.",
     alternates: {
       canonical: toAbsoluteUrl(storePath),
       languages: {
@@ -39,8 +39,8 @@ export async function generateMetadata({
       },
     },
     openGraph: {
-      title: "Store",
-      description: "Explore all of our products.",
+      title: "Gemstones & Fine Jewelry Catalog",
+      description: "Explore our curated collection of fine gemstones and handcrafted jewelry.",
       url: toAbsoluteUrl(storePath),
       type: "website",
     },

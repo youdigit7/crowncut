@@ -4,7 +4,7 @@ import SearchModal from "@modules/search/templates/search-modal"
 import { buildNoIndexMetadata } from "@lib/util/seo"
 
 export const metadata: Metadata = {
-  title: "Search",
+  title: "Search Catalog",
   ...buildNoIndexMetadata(),
 }
 

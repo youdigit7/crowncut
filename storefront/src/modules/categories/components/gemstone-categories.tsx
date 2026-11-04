@@ -23,7 +23,7 @@ export default function GemstoneCategoriesPage({
             <div className="row">
               <div className="col-12">
                 <div className="tp-gem-header">
-                  <h3 className="mb-3">Gemstones</h3>
+                  <h1 className="mb-3">Gemstones</h1>
                   <p className="mb-4 text-muted">
                     Explore our collection of precious gemstones
                   </p>

@@ -9,7 +9,7 @@ import FashionBanner from "@modules/layout/banner/fashon-banner"
 import FeatureAreaOne from "@modules/layout/components/features/feature-area-1"
 import ShopBanner from "@modules/layout/components/shop-banner/shop-banner"
 export const metadata: Metadata = {
-  title: "Home",
+  title: "Certified Natural Gemstones & Fine Jewelry",
   description:
     "Fine gems and jewelry curated for brilliance and everyday elegance.",
 }

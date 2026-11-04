@@ -130,6 +130,7 @@ const FashionBanner = () => {
               padding: 1.5rem 1.25rem !important;
               min-height: unset !important;
             }
+            .fashion-banner-left h1,
             .fashion-banner-left h3 {
               font-size: 1.25rem !important;
               margin-bottom: 0.75rem !important;
@@ -159,7 +160,7 @@ const FashionBanner = () => {
           className="fashion-banner-left flex flex-col justify-center items-center space-y-4 text-center w-full"
           style={{ backgroundColor: "#DEDED1", padding: "130px 4rem 80px 4rem", minHeight: "650px" }}
         >
-          <h3
+          <h1
             style={{
               fontFamily: "SourceSerif4ExtraLightItalic, serif",
               fontStyle: "italic",
@@ -175,7 +176,7 @@ const FashionBanner = () => {
             }}
           >
             Nature&apos;s Art, Crafted for the Heart
-          </h3>
+          </h1>
           <p
             className="fashion-banner-desc"
             style={{
