@@ -148,6 +148,7 @@ function StickyNav({ regions }: { regions: HttpTypes.StoreRegion[] | null }) {
                         src="/assets/img/logo/crowncut-logonb.png"
                         alt="logo"
                         fill
+                        sizes="(max-width: 576px) 80px, (max-width: 992px) 95px, 120px"
                         className="header-logo-img"
                         style={{ objectFit: "contain" }}
                         priority
