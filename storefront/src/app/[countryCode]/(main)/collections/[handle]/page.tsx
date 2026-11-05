@@ -25,7 +25,13 @@ type Props = {
 
 export const PRODUCT_LIMIT = 12
 
+export const dynamicParams = true
+
 export async function generateStaticParams() {
+  return []
+}
+
+async function _oldGenerateStaticParams() {
   const { collections } = await getCollectionsList()
 
   if (!collections) {

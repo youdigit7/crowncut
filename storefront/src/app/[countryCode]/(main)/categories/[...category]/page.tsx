@@ -20,7 +20,13 @@ type Props = {
   }
 }
 
+export const dynamicParams = true
+
 export async function generateStaticParams() {
+  return []
+}
+
+async function _oldGenerateStaticParams() {
   const product_categories = await listCategories()
 
   if (!product_categories) {

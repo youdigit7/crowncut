@@ -15,7 +15,13 @@ type Props = {
   params: { countryCode: string; handle: string }
 }
 
+export const dynamicParams = true
+
 export async function generateStaticParams() {
+  return []
+}
+
+async function _oldGenerateStaticParams() {
   const countryCodes = await listRegions().then(
     (regions) =>
       regions
