@@ -262,8 +262,22 @@ button {
   line-height: 1.2;
 }
 
+.tp-header-area .main-menu > nav > ul.tp-nav-menu-list {
+  gap: 20px;
+}
+
+.tp-header-area .main-menu > nav > ul.tp-nav-menu-list > li {
+  margin-right: 0 !important;
+}
+
+@media (max-width: 1199.98px) {
+  .tp-header-area .main-menu > nav > ul.tp-nav-menu-list {
+    gap: 14px;
+  }
+}
+
 .tp-header-area .logo img {
-  max-height: 120px;
+  max-height: 80px;
   max-width: 100%;
 }
 
@@ -297,17 +311,24 @@ button {
   }
 }
 
-/* Desktop header ~130px (120px logo + padding). */
+/* Desktop header ~80px. */
 .tp-store-section,
 .tp-category-section {
-  padding-top: 130px !important;
+  padding-top: 90px !important;
 }
 
-/* Mobile header ~70px (56px logo + padding). */
+/* Mobile/Tablet header ~72px (64px logo + padding). */
 @media (max-width: 991.98px) {
   .tp-store-section,
   .tp-category-section {
-    padding-top: 80px !important;
+    padding-top: 72px !important;
+  }
+}
+
+@media (max-width: 575.98px) {
+  .tp-store-section,
+  .tp-category-section {
+    padding-top: 64px !important;
   }
 }
 
@@ -485,9 +506,18 @@ button {
 }
 
 @media (max-width: 991.98px) {
-  .tp-header-bottom-3 {
+  .tp-header-bottom-3,
+  .tp-header-bottom-3.pl-85,
+  .tp-header-bottom-3.pr-85 {
     padding-top: 4px !important;
     padding-bottom: 4px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+
+  .tp-header-bottom-3 .container-fluid {
+    padding-left: 0 !important;
+    padding-right: 0 !important;
   }
 }
 
@@ -500,9 +530,11 @@ button {
     font-size: 1.05rem;
   }
 
-  .tp-header-bottom-3 {
-    padding-left: 10px !important;
-    padding-right: 10px !important;
+  .tp-header-bottom-3,
+  .tp-header-bottom-3.pl-85,
+  .tp-header-bottom-3.pr-85 {
+    padding-left: 12px !important;
+    padding-right: 12px !important;
   }
 
 
@@ -885,8 +917,8 @@ button {
 
 /* ─── Web view (desktop) alignment fixes ─── */
 
-/* Fix header padding on desktop — prevent overflow on 992px–1400px range */
-@media (min-width: 992px) and (max-width: 1400px) {
+/* Fix header padding on desktop — prevent overflow and keep logo closer to left edge */
+@media (min-width: 992px) {
   .tp-header-bottom-3.pl-85 {
     padding-left: 24px !important;
   }
