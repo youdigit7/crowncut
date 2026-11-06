@@ -76,7 +76,8 @@
     "pnpm": {
         "overrides": {
             "next": ">=15.1.11",
-            "@medusajs/cli>execa": "5.1.1"
+            "@medusajs/cli>execa": "5.1.1",
+            "@medusajs/cli>inquirer": "8.2.6"
         }
     }
 }

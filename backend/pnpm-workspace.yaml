@@ -50,3 +50,4 @@ overrides:
   multer: '>=2.5.0'
   next: '15.5.28'
   '@medusajs/cli>execa': '5.1.1'
+  '@medusajs/cli>inquirer': '8.2.6'
