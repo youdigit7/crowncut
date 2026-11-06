@@ -9,9 +9,9 @@ import {
 } from "@lib/util/seo"
 
 type MetadataProps = {
-  params: {
+  params: Promise<{
     countryCode: string
-  }
+  }>
 }
 
 type BlogPost = {
@@ -49,6 +49,8 @@ const POSTS: BlogPost[] = [
 export async function generateMetadata({
   params,
 }: MetadataProps): Promise<Metadata> {
+  const { countryCode } = await params
+
   const countryCodes = await listRegions().then(
     (regions) =>
       regions
@@ -56,7 +58,7 @@ export async function generateMetadata({
         .filter(Boolean) as string[]
   )
 
-  const blogPath = buildCountryPath(params.countryCode, "/blog")
+  const blogPath = buildCountryPath(countryCode, "/blog")
 
   return {
     title: "Blog",

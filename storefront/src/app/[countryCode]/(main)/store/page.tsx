@@ -11,14 +11,16 @@ import {
 } from "@lib/util/seo"
 
 type MetadataProps = {
-  params: {
+  params: Promise<{
     countryCode: string
-  }
+  }>
 }
 
 export async function generateMetadata({
   params,
 }: MetadataProps): Promise<Metadata> {
+  const { countryCode } = await params
+
   const countryCodes = await listRegions().then(
     (regions) =>
       regions
@@ -26,7 +28,7 @@ export async function generateMetadata({
         .filter(Boolean) as string[]
   )
 
-  const storePath = buildCountryPath(params.countryCode, "/store")
+  const storePath = buildCountryPath(countryCode, "/store")
 
   return {
     title: "Gemstones & Fine Jewelry Catalog",
@@ -48,7 +50,7 @@ export async function generateMetadata({
 }
 
 type Params = {
-  searchParams: {
+  searchParams: Promise<{
     sortBy?: SortOptions
     page?: string
     minPrice?: string
@@ -58,10 +60,10 @@ type Params = {
     search?: string
     view?: "grid" | "list"
     category?: string
-  }
-  params: {
+  }>
+  params: Promise<{
     countryCode: string
-  }
+  }>
 }
 
 export default async function StorePage({ searchParams, params }: Params) {
@@ -74,8 +76,10 @@ export default async function StorePage({ searchParams, params }: Params) {
     onSale,
     search,
     view,
-    category
-  } = searchParams
+    category,
+  } = await searchParams
+
+  const { countryCode } = await params
 
   let categoryId: string | undefined
   let resolvedCategoryHandle = ""
@@ -94,7 +98,7 @@ export default async function StorePage({ searchParams, params }: Params) {
     <StoreTemplate
       sortBy={sortBy}
       page={page}
-      countryCode={params.countryCode}
+      countryCode={countryCode}
       categoryId={categoryId}
       filters={{
         priceRange: {

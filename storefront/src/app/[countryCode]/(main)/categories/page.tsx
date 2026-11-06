@@ -9,14 +9,16 @@ import {
 } from "@lib/util/seo"
 
 type MetadataProps = {
-  params: {
+  params: Promise<{
     countryCode: string
-  }
+  }>
 }
 
 export async function generateMetadata({
   params,
 }: MetadataProps): Promise<Metadata> {
+  const { countryCode } = await params
+
   const countryCodes = await listRegions().then(
     (regions) =>
       regions
@@ -24,7 +26,7 @@ export async function generateMetadata({
         .filter(Boolean) as string[]
   )
 
-  const categoriesPath = buildCountryPath(params.countryCode, "/categories")
+  const categoriesPath = buildCountryPath(countryCode, "/categories")
 
   return {
     title: "Gemstone Categories",
@@ -42,8 +44,11 @@ export async function generateMetadata({
 export default async function CategoriesPage({
   params,
 }: {
-  params: { countryCode: string }
+  params: Promise<{ countryCode: string }>
 }) {
+  // params is available but not used in the page body — await it for correctness
+  await params
+
   const categories = await listCategories()
 
   const normalizedCategories = categories
