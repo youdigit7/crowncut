@@ -9,9 +9,9 @@ export default function Menu({
   onNavigateStart?: (href: string) => void
 }) {
   return (
-    <ul className="d-flex gap-3 m-0 p-0 list-unstyled align-items-center">
+    <ul className="tp-nav-menu-list d-flex m-0 p-0 list-unstyled align-items-center">
       {menu_data.map((menu) => (
-        <li key={menu.id} className="position-relative">
+        <li key={menu.id} className="position-relative m-0">
           <LocalizedClientLink
             href={menu.link}
             className="text-dark text-decoration-none fw-medium menu-link"
