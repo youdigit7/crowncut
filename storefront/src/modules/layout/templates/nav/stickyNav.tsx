@@ -129,11 +129,10 @@ function StickyNav({ regions }: { regions: HttpTypes.StoreRegion[] | null }) {
       <header>
         <div
           id="header-sticky"
-          className={`tp-header-area  tp-header-sticky tp-header-transparent has-dark-logo tp-header-height ${
-            sticky ? "header-sticky" : ""
-          }`}
+          className={`tp-header-area  tp-header-sticky tp-header-transparent has-dark-logo tp-header-height ${sticky ? "header-sticky" : ""
+            }`}
         >
-          <div className="tp-header-bottom-3 pl-85 pr-85">
+          <div className="tp-header-bottom-3">
             <div className="container-fluid">
               <div className={`header-layout${isSearchOpen ? " header-layout--search" : ""}`}>
                 {/* Logo */}
@@ -148,9 +147,9 @@ function StickyNav({ regions }: { regions: HttpTypes.StoreRegion[] | null }) {
                         src="/assets/img/logo/crowncut-logonb.png"
                         alt="logo"
                         fill
-                        sizes="(max-width: 576px) 80px, (max-width: 992px) 95px, 120px"
+                        sizes="(max-width: 576px) 56px, (max-width: 992px) 66px, 80px"
                         className="header-logo-img"
-                        style={{ objectFit: "contain" }}
+                        style={{ objectFit: "contain", objectPosition: "left center" }}
                         priority
                       />
                     </div>
@@ -400,7 +399,7 @@ function StickyNav({ regions }: { regions: HttpTypes.StoreRegion[] | null }) {
         <div className="page-loading-overlay" aria-live="polite" role="status" />
       )}
 
-        <style jsx>{`
+      <style jsx>{`
           /* ── Header layout ── */
           .header-layout {
             display: flex;
@@ -440,22 +439,22 @@ function StickyNav({ regions }: { regions: HttpTypes.StoreRegion[] | null }) {
           /* ── Logo ── */
           .header-logo-sizer {
             position: relative;
-            width: 120px;
-            height: 120px;
+            width: 80px;
+            height: 80px;
             flex-shrink: 0;
           }
 
           @media (max-width: 991.98px) {
             .header-logo-sizer {
-              width: 95px;
-              height: 95px;
+              width: 66px;
+              height: 66px;
             }
           }
 
           @media (max-width: 575.98px) {
             .header-logo-sizer {
-              width: 80px;
-              height: 80px;
+              width: 56px;
+              height: 56px;
             }
           }
 

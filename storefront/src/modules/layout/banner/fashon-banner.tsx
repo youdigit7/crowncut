@@ -120,7 +120,7 @@ const FashionBanner = () => {
           @media (max-width: 767px) {
             .fashion-banner-grid {
               grid-template-columns: 1fr !important;
-              padding-top: 80px;
+              padding-top: 64px;
             }
             .fashion-banner-right {
               min-height: 260px !important;
@@ -158,7 +158,7 @@ const FashionBanner = () => {
         {/* Left content card */}
         <div
           className="fashion-banner-left flex flex-col justify-center items-center space-y-4 text-center w-full"
-          style={{ backgroundColor: "#DEDED1", padding: "130px 4rem 80px 4rem", minHeight: "650px" }}
+          style={{ backgroundColor: "#DEDED1", padding: "90px 4rem 80px 4rem", minHeight: "650px" }}
         >
           <h1
             style={{
