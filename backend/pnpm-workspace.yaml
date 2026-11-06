@@ -49,3 +49,5 @@ overrides:
   qs: '>=6.16.2'
   multer: '>=2.5.0'
   next: '15.5.28'
+  execa: '8.0.1'
+  '@medusajs/cli>execa': '8.0.1'
