@@ -36,7 +36,7 @@ export default function CategoryTemplate({
       <div className="w-full small:w-[280px] small:shrink-0">
         <RefinementList sortBy={sort} data-testid="sort-by-container" />
       </div>
-      <div className="w-full">
+      <div className="w-full min-w-0">
         <div className="flex flex-row mb-8 text-2xl-semi gap-4 tp-category-heading">
           {parents &&
             parents.map((parent) => (

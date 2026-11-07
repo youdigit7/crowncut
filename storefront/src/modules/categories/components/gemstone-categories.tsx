@@ -17,65 +17,73 @@ export default function GemstoneCategoriesPage({
 }) {
   return (
     <section className="tp-banner-area pb-60 tp-gem-section">
-      <div className="container">
-        <div className="row justify-content-center">
-          <div className="col-xl-12 col-lg-12">
-            <div className="row">
-              <div className="col-12">
-                <div className="tp-gem-header">
-                  <h1 className="mb-3">Gemstones</h1>
-                  <p className="mb-4 text-muted">
-                    Explore our collection of precious gemstones
-                  </p>
-                </div>
+      <div className="container tp-gem-container">
+        <div className="tp-gem-header">
+          <h1 className="mb-2">Gemstones</h1>
+          <p className="mb-4 text-muted">
+            Explore our collection of precious gemstones
+          </p>
+        </div>
 
-                <div className="tp-gem-grid">
-                  {categories.map((category) => (
-                    <div
-                      key={category.id}
-                      className="tp-gem-card"
-                    >
-                      <UnifiedGemCard
-                        href={`/categories/${encodeURIComponent(category.handle)}`}
-                        imageUrl={resolveCategoryImage(category.handle)}
-                        imageAlt={category.name}
-                        title={category.name}
-                      />
-                    </div>
-                  ))}
-
-                  {categories.length === 0 && (
-                    <div className="tp-gem-empty">No categories found.</div>
-                  )}
-                </div>
-              </div>
+        <div className="tp-gem-grid">
+          {categories.map((category) => (
+            <div
+              key={category.id}
+              className="tp-gem-card"
+            >
+              <UnifiedGemCard
+                href={`/categories/${encodeURIComponent(category.handle)}`}
+                imageUrl={resolveCategoryImage(category.handle)}
+                imageAlt={category.name}
+                title={category.name}
+              />
             </div>
-          </div>
+          ))}
+
+          {categories.length === 0 && (
+            <div className="tp-gem-empty">No categories found.</div>
+          )}
         </div>
       </div>
 
       <style jsx>{`
         .tp-gem-section {
-          padding-top: 140px;
+          padding-top: 105px;
+          width: 100%;
+          box-sizing: border-box;
+          overflow-x: hidden;
+        }
+
+        .tp-gem-container {
+          width: 100%;
+          max-width: 1230px;
+          margin: 0 auto;
+          padding-left: 16px;
+          padding-right: 16px;
+          box-sizing: border-box;
         }
 
         .tp-gem-grid {
           display: grid;
-          grid-template-columns: repeat(4, 1fr);
+          grid-template-columns: repeat(4, minmax(0, 1fr));
           gap: 16px;
+          width: 100%;
+          box-sizing: border-box;
         }
 
         .tp-gem-card {
-          display: block;
+          display: flex;
+          width: 100%;
+          min-width: 0;
           height: 100%;
         }
 
         .tp-gem-header {
-          padding-top: 12px;
+          padding-top: 8px;
           width: 100%;
         }
 
-        .tp-gem-header h3,
+        .tp-gem-header h1,
         .tp-gem-header p {
           width: 100%;
           max-width: 100%;
@@ -94,11 +102,12 @@ export default function GemstoneCategoriesPage({
 
         @media (max-width: 991.98px) {
           .tp-gem-section {
-            padding-top: 160px;
+            padding-top: 88px;
           }
 
           .tp-gem-grid {
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 12px;
           }
 
           .tp-gem-header {
@@ -108,41 +117,60 @@ export default function GemstoneCategoriesPage({
 
         @media (max-width: 767.98px) {
           .tp-gem-section {
-            padding-top: 150px;
+            padding-top: 80px;
             padding-bottom: 40px;
           }
 
+          .tp-gem-container {
+            max-width: 100% !important;
+            padding-left: 12px;
+            padding-right: 12px;
+          }
+
           .tp-gem-grid {
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 8px;
           }
 
           .tp-gem-header {
             text-align: left;
+          }
+
+          .tp-gem-header h1 {
+            font-size: 1.75rem;
+          }
+
+          .tp-gem-header p {
+            font-size: 0.9rem;
           }
         }
 
         @media (max-width: 479.98px) {
           .tp-gem-section {
-            padding-top: 140px;
+            padding-top: 74px;
             padding-bottom: 32px;
           }
 
+          .tp-gem-container {
+            padding-left: 10px;
+            padding-right: 10px;
+          }
+
           .tp-gem-grid {
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            gap: 6px;
           }
 
           .tp-gem-header {
             text-align: left;
           }
 
-          .tp-gem-header h3 {
-            font-size: 1.25rem;
+          .tp-gem-header h1 {
+            font-size: 1.5rem;
           }
 
           .tp-gem-header p {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             white-space: normal;
             overflow: visible;
           }

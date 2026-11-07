@@ -781,30 +781,42 @@ button {
   justify-content: center;
 }
 
-/* Categories page — left-align cards and header on mobile */
+/* Categories page — centered cards and responsive sizing on mobile */
 @media (max-width: 991.98px) {
   .tp-gem-section .tp-unified-gem-card-content {
-    align-items: flex-start;
-    text-align: left;
+    align-items: center;
+    text-align: center;
   }
 
   .tp-gem-section .tp-unified-gem-card-title {
-    text-align: left;
+    text-align: center;
   }
 }
 
 /* Categories page — smaller cards on mobile */
 @media (max-width: 767.98px) {
   .tp-gem-section .tp-unified-gem-card-image-wrap {
-    min-height: 80px;
+    min-height: 76px;
   }
 
   .tp-gem-section .tp-unified-gem-card-content {
-    padding: 5px 6px;
+    padding: 6px 4px;
   }
 
   .tp-gem-section .tp-unified-gem-card-title {
-    font-size: 0.72rem;
+    font-size: 0.68rem;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+}
+
+@media (max-width: 479.98px) {
+  .tp-gem-section .tp-unified-gem-card-image-wrap {
+    min-height: 68px;
+  }
+
+  .tp-gem-section .tp-unified-gem-card-title {
+    font-size: 0.64rem;
   }
 }
 
