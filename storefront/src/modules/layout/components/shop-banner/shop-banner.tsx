@@ -164,6 +164,57 @@ const ShopBanner: React.FC<{ categories: GemstoneCategory[] }> = ({
           margin-top: 0 !important;
           border-radius: 6px;
           overflow: hidden;
+          display: flex;
+          flex-direction: column;
+          justify-content: flex-end;
+          min-height: 480px;
+        }
+        .shop-banner-girl-col .tp-banner-full-content {
+          position: relative !important;
+          bottom: auto !important;
+          left: auto !important;
+          right: auto !important;
+          top: auto !important;
+          width: 100%;
+          padding: 32px 36px !important;
+          box-sizing: border-box;
+          z-index: 2;
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          gap: 16px;
+        }
+        .shop-banner-girl-col .tp-banner-full-text {
+          flex: 1;
+          min-width: 0;
+        }
+        .shop-banner-girl-col .tp-banner-full-title {
+          margin-bottom: 8px !important;
+        }
+        .shop-banner-girl-col .tp-banner-full-desc {
+          margin: 0 !important;
+          color: rgba(255, 255, 255, 0.9);
+          max-width: 360px;
+          font-size: 0.95rem;
+          line-height: 1.5;
+        }
+        .shop-banner-girl-col .tp-banner-full-btn {
+          display: flex;
+          justify-content: flex-end;
+          align-items: flex-end;
+          flex-shrink: 0;
+        }
+        .shop-banner-girl-col .tp-banner-full-btn .tp-btn {
+          display: inline-flex !important;
+          align-items: center;
+          gap: 8px;
+          white-space: nowrap;
+          padding: 8px 20px !important;
+        }
+        .shop-banner-girl-col .tp-banner-full-btn .tp-btn svg {
+          display: inline-block !important;
+          transform: none !important;
+          flex-shrink: 0;
         }
         /* Desktop (1200px - 1399px) */
         @media (max-width: 1399.98px) {
@@ -184,6 +235,9 @@ const ShopBanner: React.FC<{ categories: GemstoneCategory[] }> = ({
           .shop-banner-gems-grid .tp-unified-gem-card-title {
             font-size: 0.85rem;
           }
+          .shop-banner-girl-col .tp-banner-full-content {
+            padding: 24px 28px !important;
+          }
         }
         /* Tablet Portrait (768px - 991px) */
         @media (max-width: 991.98px) {
@@ -193,7 +247,7 @@ const ShopBanner: React.FC<{ categories: GemstoneCategory[] }> = ({
             grid-template-columns: minmax(0, 1fr);
           }
           .shop-banner-girl-col .tp-banner-full {
-            min-height: 420px;
+            min-height: 440px;
           }
         }
         /* Mobile Landscape / Large Phone (576px - 767px) */
@@ -212,7 +266,19 @@ const ShopBanner: React.FC<{ categories: GemstoneCategory[] }> = ({
             font-size: 0.75rem;
           }
           .shop-banner-girl-col .tp-banner-full {
-            min-height: 360px;
+            min-height: 400px;
+          }
+          .shop-banner-girl-col .tp-banner-full-content {
+            padding: 20px 22px !important;
+            gap: 12px;
+          }
+          .shop-banner-girl-col .tp-banner-full-desc {
+            font-size: 0.86rem;
+            line-height: 1.45;
+          }
+          .shop-banner-girl-col .tp-banner-full-btn .tp-btn {
+            padding: 7px 15px !important;
+            font-size: 0.88rem !important;
           }
         }
         /* Mobile Portrait (<= 575px) */
@@ -225,7 +291,24 @@ const ShopBanner: React.FC<{ categories: GemstoneCategory[] }> = ({
             font-size: 0.7rem;
           }
           .shop-banner-girl-col .tp-banner-full {
-            min-height: 320px;
+            min-height: 380px;
+          }
+          .shop-banner-girl-col .tp-banner-full-content {
+            padding: 16px !important;
+            gap: 10px;
+          }
+          .shop-banner-girl-col .tp-banner-full-title {
+            font-size: 1.5rem !important;
+            margin-bottom: 4px !important;
+          }
+          .shop-banner-girl-col .tp-banner-full-desc {
+            font-size: 0.78rem;
+            line-height: 1.38;
+          }
+          .shop-banner-girl-col .tp-banner-full-btn .tp-btn {
+            padding: 6px 12px !important;
+            font-size: 0.8rem !important;
+            gap: 6px;
           }
         }
         /* Extra Small Mobile (<= 359px) */
@@ -277,15 +360,17 @@ const ShopBanner: React.FC<{ categories: GemstoneCategory[] }> = ({
                 style={{ backgroundImage: `url(${banner_bg_5.src})` }}
               ></div>
               <div className="tp-banner-full-content">
-                <span>Collection</span>
-                <h3 className="tp-banner-full-title">
-                  <LocalizedClientLink href="/store">
-                    GemStones
-                  </LocalizedClientLink>
-                </h3>
-                <p style={{ margin: "14px 0 0", color: "rgba(255,255,255,0.85)", maxWidth: 360 }}>
-                  Discover authentic, ethically sourced gemstones known worldwide for their brilliance and purity.
-                </p>
+                <div className="tp-banner-full-text">
+                  <span>Collection</span>
+                  <h3 className="tp-banner-full-title">
+                    <LocalizedClientLink href="/store">
+                      GemStones
+                    </LocalizedClientLink>
+                  </h3>
+                  <p className="tp-banner-full-desc">
+                    Discover authentic, ethically sourced gemstones known worldwide for their brilliance and purity.
+                  </p>
+                </div>
                 <div className="tp-banner-full-btn">
                   <LocalizedClientLink href="/store" className="tp-btn tp-btn-border">
                     Shop Now <ArrowRightLong />
